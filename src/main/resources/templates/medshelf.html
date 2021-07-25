@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar" />
+
+	<div class="container">
+		<div class="row" style="margin-bottom: -100px;">
+			<div class="col-xs-8">
+				<h2 class="section-headline">
+					<h2 class="section-headline">
+						<span
+							th:text="${user}? ${#strings.toUpperCase(user.username)} : 'All Medicines'"></span>
+					</h2>
+				</h2>
+			</div>
+			<div class="col-xs-4">
+				<img th:src="@{/image/logo.png}" class="img-responsive" />
+			</div>
+		</div>
+		<hr
+			style="position: absolute; width: 80%; height: 6px; background-color: #333; z-index: -1; margin-top: -80px;" />
+		<!-- <img class="img-responsive" src="/image/wood.png"
+			style="margin-top: -75px;" /> -->
+
+		<div class="row" style="margin-top: 60px;">
+			<div class="col-xs-3">
+				<h3><label for="category">Category</label></h3>
+				<div class="list-group" id="category">
+					<a th:href="@{/medshelf(category='all')}" th:classappend="${activeAll}? 'active'" class="list-group-item">All</a>
+					<a th:href="@{/searchByCategory(category='Fever')}" th:classappend="${activeFever}? 'active'" class="list-group-item">Fever</a>
+					<a th:href="@{/searchByCategory(category='Cough &amp; Cold')}" th:classappend="${activeCoughCold}? 'active'" class="list-group-item">Cough &amp; Cold</a>
+					<a th:href="@{/searchByCategory(category='Blood Pressure')}" th:classappend="${activeBloodPressure}? 'active'" class="list-group-item">Blood Pressure</a>
+					<a th:href="@{/searchByCategory(category='Acidity')}" th:classappend="${activeAcidity}? 'active'" class="list-group-item">Acidity</a>
+					<a th:href="@{/searchByCategory(category='Breathing')}" th:classappend="${activeBreathing}? 'active'" class="list-group-item">Breathing</a>
+				</div>
+			</div>
+			
+			<div class="col-xs-9">
+				<div th:if="${emptyList}">
+					<h5 style="font-style: italic;">Oops, no result is found. Try
+						something else or try again later.</h5>
+				</div>
+
+				<table border="0" id="medList">
+					<thead>
+						<tr>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="med-item" data-th-each="med : ${medList}" >
+							<td>
+								<div th:if="${med != null}">
+									<div class="row" style="margin-bottom: 50px;">
+										<div class="col-xs-3">
+											<a th:href="@{/medDetail?id=}+${med.id}"><img 
+												class="img-responsive shelf-med"
+												th:src="#{adminPath}+@{/image/med/}+${med.id}+'.png'" /></a>
+										</div>
+										<div class="col-xs-9" >
+											<a th:href="@{/medDetail?id=}+${med.id}"><h4
+													th:text="${med.title}"></h4></a> <span
+												th:text="${med.expDate}"></span>
+											<p th:text="${med.manufacturer}"></p>
+											<a th:href="@{/medDetail?id=}+${med.id}"><span
+												th:text="${#strings.capitalize(med.format)}"></span></a> <span
+												th:text="${med.amount}"><span> grams/items</span></span><br />
+
+											<a th:href="@{/medDetail?id=}+${med.id}"><span
+												style="font-size: x-large; color: #db3208;">Rs. <span
+													th:text="${#numbers.formatDecimal(med.ourPrice, 0 , 'COMMA', 2, 'POINT')}"></span></span></a>
+
+											<span style="text-decoration: line-through;">Rs. <span
+												th:text="${#numbers.formatDecimal(med.listPrice, 0 , 'COMMA', 2, 'POINT')}"></span></span>
+
+											<p th:utext="${#strings.abbreviate(med.description, 1000)}"></p>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<!-- end of container -->
+	
+	<div th:replace="common/header :: footer"/>
+
+	<div th:replace="common/header :: body-bottom-scripts" />
+	
+	<script>
+		$(document).ready(function() {
+			$('#medList').DataTable();
+			
+			$("#medList").on('page.dt', function() {
+				$('html, body').animate({
+					scrollTop: $('#medList').offset().top
+				}, 200);
+			});
+		});
+	</script>
+	
+</body>
+</html>

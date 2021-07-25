@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar" />
+
+	<div class="container">
+		<div>
+			<ol class="breadcrumb">
+				<li><a th:href="@{/med/medList}"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Go back</a></li>
+				<li><a th:href="@{/med/updateMed?id=}+${med.id}">Edit</a></li>
+			</ol>
+			
+		</div>
+		
+		<div class="row">
+			<div class="col-xs-3">
+				<div class="panel panel-default">
+				<div class="panel-body">
+					<img th:src="@{/image/med/}+${med.id}+'.png'" class="img-responsive center-block" />
+				</div>
+				</div>
+			</div>
+			<div class="col-xs-9">
+				<h3 th:text="${med.title}"></h3>
+				<div class="row">
+					<div class="col-xs-6">
+						<p><strong>Manufacturer: </strong><span th:text="${med.manufacturer}"></span></p>
+						<p><strong>Manufacture Date: </strong><span th:text="${med.mfgDate}"></span></p>
+						<p><strong>Expiry Date: </strong><span th:text="${med.expDate}"></span></p>
+						<p><strong>Category: </strong><span th:text="${med.category}"></span></p>
+						<p><strong>Amount: </strong><span th:text="${med.amount}"></span></p>
+					</div>
+					<div class="col-xs-6">
+						<p><strong>Format: </strong><span th:text="${med.format}"></span></p>
+						<p><strong>Batch No.: </strong><span th:text="${med.batchno}"></span></p>
+						<p><strong>Shipping Weight: </strong><span th:text="${med.shippingWeight}"></span></p>
+						<p><strong>List Price: </strong>Rs. <span th:text="${med.listPrice}"></span></p>
+						<p><strong>Our Price: </strong>Rs. <span th:text="${med.ourPrice}"></span></p>
+						<p><strong>Number in Stock: </strong><span th:text="${med.inStockNumber}"></span></p>
+					</div>
+				</div>
+				
+				<p><Strong>Description: </Strong><span th:utext="${med.description}"></span></p>
+			</div>
+			
+		</div>
+	</div>
+	
+	<div th:replace="common/header :: body-bottom-scripts" />
+</body>
+</html>

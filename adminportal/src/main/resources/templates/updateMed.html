@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar" />
+
+	<div class="container">
+		<div class="row">
+			<form class="form-horizontal" th:action="@{/med/updateMed}" method="post"
+				enctype="multipart/form-data">
+				<fieldset>
+					<legend class="center-block">
+						Update Medicine Information<span style="font-size: small"> * is a
+							required field</span>
+					</legend>
+					
+					<input hidden="hidden" name="id" th:value="${med.id}" />
+
+
+					<!-- title -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="title">* Title</label>
+
+						<div class="col-md-8">
+							<input type="text" name="title" class="form-control" id="title"
+								th:value="${med.title}" required="required" placeholder="Title" />
+							<span class="help-block">Title of the med</span>
+						</div>
+					</div>
+
+					<!-- manufacturer -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="manufacturer">*
+							Manufacturer</label>
+						<div class="col-md-8">
+							<input type="text" name="manufacturer" class="form-control" id="manufacturer"
+								th:value="${med.manufacturer}" required="required"
+								placeholder="Manufacturer" /> <span class="help-block">Manufacturer
+								of the Medicine</span>
+						</div>
+					</div>
+
+					<!-- manufacture date -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="mfgDate">* Manufacture
+							Date</label>
+						<div class="col-md-8">
+							<input type="date" class="form-control" id="mfgDate" required="required"
+								name="mfgDate" th:value="${med.mfgDate}"
+								placeholder="Manufacture Date" /> <span class="help-block">Manufacture
+								Date of the Medicine</span>
+						</div>
+					</div>
+					
+					<!-- expiry date -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="expDate">* Expiry
+							Date</label>
+						<div class="col-md-8">
+							<input type="date" class="form-control" id="expDate" required="required"
+								name="expDate" th:value="${med.expDate}"
+								placeholder="Manufacture Date" /> <span class="help-block">Expiry
+								Date of the Medicine</span>
+						</div>
+					</div>
+
+					<!-- category -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="category">*
+							Category</label>
+						<div class="col-md-8">
+							<select th:value="${med.category}" id="category" name="category"
+								class="form-control">
+								<option value="" selected="selected" disabled="disabled">Please
+									select an option...</option>
+								<option value="Fever"
+									th:selected="(${med.category}=='Fever')">Fever</option>
+								<option value="Cough &amp; Cold"
+									th:selected="(${med.category}=='Cough &amp; Cold')">Cough
+									&amp; Cold</option>
+								<option value="Blood Pressure"
+									th:selected="(${med.category}=='Blood Pressure')">Blood Pressure</option>
+								<option value="Acidity"
+									th:selected="(${med.category}=='Acidity')">Acidity</option>
+								<option value="Breathing"
+									th:selected="(${med.category}=='Breathing')">Breathing</option>
+							</select>
+						</div>
+					</div>
+
+					<!-- amount -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="amount">Amount</label>
+
+						<div class="col-md-8">
+							<input type="number" name="amount" class="form-control"
+								id="amount" th:value="${med.amount}"
+								placeholder="Amount" /> <span class="help-block">Amount [ Number or Weight(in g) ]</span>
+						</div>
+					</div>
+
+					<!-- format -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="format">Format</label>
+						<div class="col-md-8">
+							<select th:value="${med.format}" id="format" name="format"
+								class="form-control">
+								<option value="tablet">Tablet</option>
+								<option value="capsule">Capsule</option>
+								<option value="syrup">Syrup</option>
+								<option value="drop">Drop</option>
+								<option value="inhaler">Inhaler</option>
+							</select>
+						</div>
+					</div>
+
+					<!-- batchno -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="batchno">Batch No.</label>
+
+						<div class="col-md-8">
+							<input type="text" name="batchno" class="form-control" id="batchno"
+								th:value="${med.batchno}" placeholder="Batch No." /> <span
+								class="help-block">Batch Number of the Medicine</span>
+						</div>
+					</div>
+
+					<!-- shipping weight -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="shippingWeight">Shipping
+							Weight</label>
+						<div class="col-md-8">
+							<div class="input-group">
+								<input th:value="${med.shippingWeight}" type="number" step="0.01"
+									name="shippingWeight" class="form-control" id="shippingWeight"
+									placeholder="Shipping Weight" /> <span
+									class="input-group-addon">Grams</span>
+							</div>
+							<span class="help-block">Shipping Weight of the Medicine</span>
+						</div>
+					</div>
+
+					<!-- list price -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="listPrice">List
+							Price</label>
+						<div class="col-md-8">
+							<div class="input-group">
+								<span class="input-group-addon">Rs.</span> <input
+									th:value="${med.listPrice}" type="number" name="listPrice" step="0.01"
+									class="form-control" id="listPrice" placeholder="List Price" />
+							</div>
+							<span class="help-block">List price of the Medicine</span>
+						</div>
+					</div>
+
+					<!-- our price -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="ourPrice">* Our
+							Price</label>
+						<div class="col-md-8">
+							<div class="input-group">
+								<span class="input-group-addon">Rs.</span> <input
+									th:value="${med.ourPrice}" type="number" name="ourPrice" step="0.01" required="required"
+									class="form-control" id="ourPrice" placeholder="Our Price" />
+							</div>
+							<span class="help-block">Our price of the Medicine</span>
+						</div>
+					</div>
+
+					<!-- in stock number -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="inStockNumber">* Number
+							in stock</label>
+						<div class="col-md-8">
+							<input th:value="${med.inStockNumber}" type="number" required="required"
+								name="inStockNumber" class="form-control" id="inStockNumber"
+								placeholder="Number of in-stock copies" /> <span
+								class="help-block">Number of in-stock items</span>
+						</div>
+					</div>
+
+					<!-- status of med -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="status">Status</label>
+						<div class="col-md-8">
+							<label><input value="true" type="radio" name="active"
+								th:checked="${med.active}" /> Active </label> <label><input
+								value="false" type="radio" name="active" th:checked="${!med.active}"/>
+								Inactive </label> <span class="help-block">Whether the Medicine is
+								active or inactive</span>
+						</div>
+					</div>
+
+					<!-- description -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="description">Description</label>
+						<div class="col-md-8">
+							<textarea name="description" rows="5" class="form-control"
+								id="description" th:value="${med.description}" th:text="${med.description}"
+								placeholder="Description" /></textarea>
+							<span class="help-block">Description of the Medicine</span>
+						</div>
+					</div>
+
+					<!-- upload image -->
+					<div class="form-group">
+						<div class="col-md-2">
+							<label for="medImage">Upload Medicine image</label>
+						</div>
+						<div class="col-md-8">
+							<input id="medImage" type="file" name="medImage"
+								th:value="${med.medImage}" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-md-2"></div>
+						<div class="col-md-8">
+							<button type="submit" class="btn btn-success">Update Medicine</button>
+							<a class="btn btn-danger" th:href="@{/med/medInfo(id=${med.id})}">Cancel</a>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+		
+	<div th:replace="common/header :: body-bottom-scripts" />
+</body>
+</html>

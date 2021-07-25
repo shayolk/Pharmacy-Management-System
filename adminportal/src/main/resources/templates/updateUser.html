@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar" />
+
+	<div class="container">
+		<div class="row">
+			<form class="form-horizontal" th:action="@{/user/updateUser}"
+				method="post" enctype="multipart/form-data">
+				<fieldset>
+					<legend class="center-block">
+						Update User Information<span style="font-size: small"> * is
+							a required field</span>
+					</legend>
+
+					<input hidden="hidden" name="id" th:value="${user.id}" />
+
+
+					<!-- username -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="username">*
+							Username</label><span style="color: red;" th:if="${usernameExists}">
+							Username already exists. Choose a different one.</span>
+
+						<div class="col-md-8">
+							<input type="text" name="username" class="form-control"
+								id="username" th:value="${user.username}" required="required"
+								placeholder="Username" /> <span class="help-block">Username
+								for transactional purposes</span>
+						</div>
+					</div>
+
+					<!-- password -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="password">Password</label><span
+							style="color: red;" th:if="${passwordEmpty}"> Password
+							can't be empty!</span>
+						<div class="col-md-8">
+							<input type="password" name="password" class="form-control"
+								id="password" th:value="${user.password}" placeholder="Password" />
+							<span class="help-block">Password for logging in</span>
+						</div>
+					</div>
+
+					<!-- firstName -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="firstName">First
+							Name</label>
+
+						<div class="col-md-8">
+							<input type="text" name="firstName" class="form-control"
+								id="firstName" th:value="${user.firstName}"
+								placeholder="First Name" /> <span class="help-block">User's
+								first name</span>
+						</div>
+					</div>
+
+					<!-- lastName -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="lastName">Last
+							Name</label>
+
+						<div class="col-md-8">
+							<input type="text" name="lastName" class="form-control"
+								id="lastName" th:value="${user.lastName}"
+								placeholder="Last Name" /> <span class="help-block">User's
+								last name</span>
+						</div>
+					</div>
+
+					<!-- email -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="email">* Email
+							id</label><span style="color: red;" th:if="${emailExists}"> Email
+							already exists. Choose a different one.</span>
+
+						<div class="col-md-8">
+							<input type="text" name="email" class="form-control" id="email"
+								th:value="${user.email}" required="required" disabled
+								placeholder="Email id" /> <span class="help-block">A
+								valid email address</span>
+						</div>
+					</div>
+
+					<!-- phone -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="phone">Phone</label>
+
+						<div class="col-md-8">
+							<input type="text" name="phone" class="form-control" id="phone"
+								pattern=".{10,}"
+								title="Phone No. must contain at least 10 digits"
+								th:value="${user.phone}" placeholder="Phone Number" /> <span
+								class="help-block">A valid contact number</span>
+						</div>
+					</div>
+
+					<!-- status of user -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="enabled">Enabled</label>
+						<div class="col-md-8">
+							<label><input value="true" type="radio" name="enabled"
+								th:checked="${user.enabled}" /> Enable </label> <label><input
+								value="false" type="radio" name="enabled"
+								th:checked="${!user.enabled}" /> Disable </label> <span
+								class="help-block">Whether the User is enabled or
+								disabled</span>
+						</div>
+					</div>
+
+					<!-- role -->
+					<div class="form-group hidden">
+						<label class="col-md-2 control-label" for="name">* Role</label>
+						<div class="col-md-8">
+							<select th:value="${role.name}" id="name" name="name"
+								class="form-control" disabled required="required">
+								<option value="" selected="selected" disabled="disabled">Please
+									select an option...</option>
+								<option value="ROLE_USER" selected="selected"
+									th:selected="(${role.name}=='ROLE_USER')">User</option>
+								<option value="ROLE_ADMIN"
+									th:selected="(${role.name}=='ROLE_ADMIN')">Admin</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-md-2"></div>
+						<div class="col-md-8">
+							<button type="submit" class="btn btn-success">Update
+								User</button>
+							<a class="btn btn-danger"
+								th:href="@{/user/userInfo(id=${user.id})}">Cancel</a>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+
+	<div th:replace="common/header :: body-bottom-scripts" />
+</body>
+</html>

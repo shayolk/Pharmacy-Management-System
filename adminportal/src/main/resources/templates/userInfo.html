@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar" />
+
+	<div class="container">
+		<div>
+			<ol class="breadcrumb">
+				<li><a th:href="@{/user/userList}"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Go back</a></li>
+				<li><a th:href="@{/user/updateUser?id=}+${user.id}">Edit</a></li>
+			</ol>
+			
+		</div>
+		
+		<div class="row">
+			<div class="col-xs-9">
+				<h2 th:text="${user.firstName} + ${' '} + ${user.lastName}"></h2>
+				<div class="row">
+					<h4>
+					<div class="col-xs-6">
+						<br>
+						<p><strong>Username: </strong><span th:text="${user.username}"></span></p>
+						<p><strong>First Name: </strong><span th:text="${user.firstName}"></span></p>
+						<p><strong>Last Name: </strong><span th:text="${user.lastName}"></span></p>
+					</div>
+					<div class="col-xs-6">
+						<br>
+						<p><strong>Email address: </strong><span th:text="${user.email}"></span></p>
+						<p><strong>Phone No.: </strong><span th:text="${user.phone}"></span></p>
+						<p><strong>Enabled: </strong><span th:text="${user.enabled}"></span></p>
+					</div></h4>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	
+	<div th:replace="common/header :: body-bottom-scripts" />
+</body>
+</html>
